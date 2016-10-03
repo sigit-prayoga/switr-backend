@@ -28,17 +28,36 @@ app.get('/api/swits', function (req, res) {
 });
 
 app.post('/api/swit', function (req, res) {
+	//get the swit from req
 	var swit = req.body.swit;
-	swits.push(swit);
-	res.json({message:'Successfully added', swit: swit});
+	//convert to obj by adding today time for sorting
+	var switObj = changeToSwitObj(swit);
+	//add to swits array
+	//TODO: database integration
+	swits.push(switObj);
+	//send a response back to frontend
+	res.json({message:'Successfully added', swit: switObj});
 });
 
 io.on('connection', function(socket){
+	//once it received 'new swit' 
 	socket.on('new swit', function(swit){
-		swits.push(swit);
-		io.emit('incoming swit', swit);
+		//construct an object
+		var switObj = changeToSwitObj(swit)
+		//add it to array
+		swits.push(switObj);
+		//emit a registered event in frontend, in this case
+		//'incoming swit'
+		io.emit('incoming swit', switObj);
 	});
 });
+
+function changeToSwitObj(switText){
+	return {
+		text: switText,
+		time: new Date()
+	}
+}
 
 server.listen(1818, function () {
 	console.log('Listening on port %s...', 1818);
