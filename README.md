@@ -1,5 +1,5 @@
 # switr-backend
-SWITR - simpler than twitter -- Backend part using nodejs, express and socket.io (there will be MongoDB)
+SWITR - simpler than twitter -- Backend part using nodejs, express, mongoDb and socket.io
 
 #### Run it in your local
 
@@ -17,12 +17,25 @@ And then, you have to install all dependencies using npm
 $ npm install
 ```
 
-Finally, run node
+If you have MongoDB already in your computer. Run your mongoDb server
+
+```sh
+$ mongod
+```
+
+Default, your server will be running on /data/db, to check go to your terminal again and type: 
+
+```sh
+$ mongo
+
+$ show dbs
+```
+
+Finally, run node to run the server
 
 ```sh
 $ node server.js
 ```
 
 ### Todos
-- Integrate with MongoDB
-- Implement 'search' function
+- Create Users collections with MongoDB
